@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background-color: #13110f;
+  color: #f3efe8;
+}
+
+/* Barra de progreso tipo "disco de pesa" para el dashboard */
+.plate-bar {
+  height: 10px;
+  border-radius: 999px;
+  background: #272220;
+  overflow: hidden;
+}
+.plate-bar > div {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #ff5e1a, #ff8a4c);
+}
