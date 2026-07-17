@@ -25,6 +25,9 @@ export default function Hero() {
           Equipo de cardio y fuerza de nivel profesional, entrenadores certificados
           y un sistema en vivo para ver qué máquinas están disponibles antes de salir de casa.
         </p>
+        <h5 className="mt-4 font-mono text-xs uppercase tracking-[0.3em] text-slate2">
+          📍 Canalejas, Jilotepec, Estado de México
+        </h5>
         <div className="mt-8 flex justify-center">
           <button
             onClick={handleScroll}

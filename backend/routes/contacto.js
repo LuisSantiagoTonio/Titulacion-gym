@@ -21,7 +21,7 @@ router.post('/', async (req, res) => {
         Nombre: nombre,
         Email: email,
         Mensaje: mensaje,
-        _subject: `🏋️‍♂️ Nuevo mensaje de contacto HIERRO GYM - ${nombre}`,
+        _subject: `🏋️‍♂️ Nuevo mensaje de contacto VIKINGOS GYM - ${nombre}`,
         _replyto: email,
         _template: 'box' // Estilo limpio en caja de correo
       })

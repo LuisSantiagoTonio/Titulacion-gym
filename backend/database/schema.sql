@@ -17,23 +17,7 @@ CREATE TABLE IF NOT EXISTS maquinas (
   creado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Tabla de usuarios / miembros
-CREATE TABLE IF NOT EXISTS usuarios (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  nombre VARCHAR(100) NOT NULL,
-  email VARCHAR(100) UNIQUE NOT NULL,
-  membresia VARCHAR(50) DEFAULT 'Básica',
-  activo BOOLEAN DEFAULT TRUE,
-  fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
 
--- Tabla de administradores para el login del dashboard
-CREATE TABLE IF NOT EXISTS administradores (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  usuario VARCHAR(100) UNIQUE NOT NULL,
-  password VARCHAR(255) NOT NULL,
-  creado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
 
 -- ============================================
 -- Datos de ejemplo
@@ -53,14 +37,3 @@ INSERT INTO maquinas (nombre, descripcion, categoria, imagen_url, disponible) VA
 ('Remo Concept', 'Máquina de remo para espalda y cardio combinado.', 'Cardio', 'https://images.unsplash.com/photo-1623874514711-0f321325f318?w=600', TRUE),
 ('Prensa de Piernas', 'Máquina inclinada para cuádriceps y glúteos.', 'Fuerza', 'https://images.unsplash.com/photo-1581009137042-c552e485697a?w=600', FALSE),
 ('Mancuernas (set completo)', 'Set de mancuernas de 1 a 50 kg.', 'Peso Libre', 'https://images.unsplash.com/photo-1638536532686-d610adfc8e5c?w=600', TRUE);
-
-INSERT INTO usuarios (nombre, email, membresia) VALUES
-('Ana López', 'ana.lopez@correo.com', 'Premium'),
-('Carlos Ruiz', 'carlos.ruiz@correo.com', 'Básica'),
-('María Pérez', 'maria.perez@correo.com', 'Premium'),
-('Jorge Díaz', 'jorge.diaz@correo.com', 'Básica');
-
--- Insertar administrador por defecto: admin / admin123
-INSERT INTO administradores (usuario, password) VALUES
-('admin', '$2b$10$TD0onTfC6Z7dL2zAM2NCW.EEf8/aprvY8gPr/hJQrVJjmWG6.T8aW');
-

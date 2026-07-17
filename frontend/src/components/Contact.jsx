@@ -64,7 +64,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <h4 className="font-mono text-xs uppercase tracking-wider text-chalk font-semibold">Ubicación</h4>
-                  <p className="mt-1 font-body text-sm text-slate2">Av. Principal de Hierro, Local #204, Ciudad de Acero</p>
+                  <p className="mt-1 font-body text-sm text-slate2">Canalejas, Jilotepec, Estado de México</p>
                 </div>
               </div>
 
@@ -92,7 +92,16 @@ export default function Contact() {
                 </div>
                 <div>
                   <h4 className="font-mono text-xs uppercase tracking-wider text-chalk font-semibold">Horario de Atención</h4>
-                  <p className="mt-1 font-body text-sm text-slate2">Lunes a Viernes: 6:00 AM - 10:00 PM <br /> Sábados y Domingos: 8:00 AM - 4:00 PM</p>
+                  <div className="mt-2 space-y-2">
+                    <div>
+                      <h5 className="font-mono text-[10px] uppercase tracking-wider text-ember-500">Lunes a Viernes</h5>
+                      <h6 className="font-body text-sm text-slate2">6:00 AM – 10:00 PM</h6>
+                    </div>
+                    <div>
+                      <h5 className="font-mono text-[10px] uppercase tracking-wider text-ember-500">Sábados y Domingos</h5>
+                      <h6 className="font-body text-sm text-slate2">8:00 AM – 4:00 PM</h6>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -181,6 +190,47 @@ export default function Contact() {
                 </button>
               </form>
             </div>
+          </div>
+        </div>
+
+        {/* Mapa de ubicación */}
+        <div className="mt-16">
+          <div className="mb-6 flex flex-col gap-1">
+            <p className="font-mono text-xs uppercase tracking-[0.3em] text-ember-500">¿Cómo llegar?</p>
+            <h3 className="font-display text-2xl font-semibold uppercase tracking-wide text-chalk">
+              Nuestra Ubicación
+            </h3>
+            <p className="mt-1 font-body text-sm text-slate2">Canalejas, Jilotepec, Estado de México</p>
+          </div>
+          <div className="overflow-hidden rounded-2xl border border-iron-700 shadow-2xl relative">
+            {/* Overlay de color para integrar el mapa al tema oscuro */}
+            <div className="absolute inset-0 pointer-events-none z-10 rounded-2xl ring-1 ring-inset ring-iron-700" />
+            <iframe
+              title="Ubicación Vikingos Gym — Canalejas, Jilotepec"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3748.8!2d-99.5353!3d20.0167!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1e4f30000001%3A0x0!2sCanalejas%2C+Jilotepec%2C+M%C3%A9x.!5e0!3m2!1ses!2smx!4v1700000000000!5m2!1ses!2smx"
+              width="100%"
+              height="380"
+              style={{ border: 0, filter: 'grayscale(60%) contrast(1.1) brightness(0.8)' }}
+              allowFullScreen=""
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              className="block w-full"
+            />
+          </div>
+          {/* Botón para abrir en Google Maps */}
+          <div className="mt-4 flex justify-end">
+            <a
+              href="https://www.google.com/maps/search/Vikingos+Gym+Canalejas+Jilotepec+Mexico"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-xl border border-iron-700 bg-iron-900 px-5 py-2.5 font-mono text-xs font-semibold uppercase tracking-wider text-chalk hover:border-ember-500 hover:text-ember-500 transition-all duration-300 active:scale-95"
+            >
+              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+              Abrir en Google Maps
+            </a>
           </div>
         </div>
       </div>
