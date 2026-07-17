@@ -35,7 +35,7 @@ export default function Dashboard() {
     ];
 
     return (
-        <section id="dashboard-section" className="mx-auto max-w-6xl px-6 py-16">
+        <section id="dashboard-section" className="reveal mx-auto max-w-6xl px-6 py-16">
             {/* Cabecera */}
             <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between border-b border-iron-800 pb-6">
                 <div>
@@ -75,7 +75,7 @@ export default function Dashboard() {
                     {/* Sección de Gráficas */}
                     <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
                         {/* Gráfica 1: Afluencia de personas */}
-                        <div className="rounded-2xl border border-iron-700 bg-iron-900 p-6">
+                        <div className="rounded-2xl border border-iron-700 bg-iron-900 p-6 transition-all duration-300 hover:border-ember-500/40">
                             <h3 className="font-display text-lg font-medium text-chalk mb-2">
                                 Afluencia de Personas por Hora
                             </h3>
@@ -107,7 +107,7 @@ export default function Dashboard() {
                         </div>
 
                         {/* Gráfica 2: Crecimiento de Miembros */}
-                        <div className="rounded-2xl border border-iron-700 bg-iron-900 p-6">
+                        <div className="rounded-2xl border border-iron-700 bg-iron-900 p-6 transition-all duration-300 hover:border-ember-500/40">
                             <h3 className="font-display text-lg font-medium text-chalk mb-2">
                                 Crecimiento de Miembros
                             </h3>
@@ -155,7 +155,7 @@ export default function Dashboard() {
                     </div>
 
                     {/* Tabla de Horarios */}
-                    <div className="rounded-2xl border border-iron-700 bg-iron-900 p-6 overflow-hidden">
+                    <div className="rounded-2xl border border-iron-700 bg-iron-900 p-6 transition-all duration-300 hover:border-ember-500/40 overflow-hidden">
                         <h3 className="font-display text-lg font-medium text-chalk mb-2">
                             Horario de Clases Semanal
                         </h3>
@@ -196,7 +196,7 @@ export default function Dashboard() {
             ) : (
                 <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
                     {/* Lista Ordenada: Pasos para iniciar */}
-                    <div className="rounded-2xl border border-iron-700 bg-iron-900 p-6">
+                    <div className="rounded-2xl border border-iron-700 bg-iron-900 p-6 transition-all duration-300 hover:border-ember-500/40">
                         <h3 className="font-display text-lg font-medium text-chalk mb-2">
                             Guía de Inicio Rápido
                         </h3>
@@ -226,7 +226,7 @@ export default function Dashboard() {
                     </div>
 
                     {/* Lista Desordenada: Reglas del Gimnasio */}
-                    <div className="rounded-2xl border border-iron-700 bg-iron-900 p-6">
+                    <div className="rounded-2xl border border-iron-700 bg-iron-900 p-6 transition-all duration-300 hover:border-ember-500/40">
                         <h3 className="font-display text-lg font-medium text-chalk mb-2">
                             Reglamento Interno
                         </h3>

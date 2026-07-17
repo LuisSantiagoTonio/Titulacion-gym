@@ -1,79 +1,112 @@
-import { Link, useLocation } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+
+const NAV_ITEMS = [
+  { id: 'inicio-section', label: 'Inicio' },
+  { id: 'nosotros-section', label: 'Nosotros' },
+  { id: 'videos-section', label: 'Videos' },
+  { id: 'dashboard-section', label: 'Estadísticas' },
+  { id: 'contacto-section', label: 'Contacto' },
+];
 
 export default function Navbar() {
-  const location = useLocation();
+  const [activeSection, setActiveSection] = useState('inicio-section');
+  const [scrolled, setScrolled] = useState(false);
+  const [progress, setProgress] = useState(0);
 
-  const handleScrollToSection = (e, sectionId) => {
-    if (location.pathname === '/') {
-      e.preventDefault();
-      const element = document.getElementById(sectionId);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
+  // Scroll spy: detecta la sección visible y resalta su enlace
+  useEffect(() => {
+    const sections = NAV_ITEMS.map((item) => document.getElementById(item.id)).filter(Boolean);
+    if (!sections.length || typeof IntersectionObserver === 'undefined') return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActiveSection(entry.target.id);
+        });
+      },
+      // Activa una "línea" imaginaria a ~45% de la parte superior de la pantalla
+      { rootMargin: '-45% 0px -50% 0px', threshold: 0 }
+    );
+
+    sections.forEach((s) => observer.observe(s));
+    return () => observer.disconnect();
+  }, []);
+
+  // Estado y progreso al hacer scroll
+  useEffect(() => {
+    const onScroll = () => {
+      const scrollTop = window.scrollY;
+      const height = document.documentElement.scrollHeight - window.innerHeight;
+      setScrolled(scrollTop > 8);
+      setProgress(height > 0 ? (scrollTop / height) * 100 : 0);
+      // Al llegar arriba del todo, forzamos "Inicio" activo
+      if (scrollTop < 120) setActiveSection('inicio-section');
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  const handleClick = (e, id) => {
+    e.preventDefault();
+    const element = document.getElementById(id);
+    if (element) element.scrollIntoView({ behavior: 'smooth' });
+    setActiveSection(id);
   };
 
   return (
-    <header className="sticky top-0 z-50 border-b border-iron-700 bg-iron-950/95 backdrop-blur">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        <div className="flex items-center gap-2">
-          <Link to="/" className="font-display text-2xl font-semibold tracking-wide text-chalk hover:scale-[1.02] transition-transform duration-200">
-            VIKINGOS<span className="text-ember-500">GYM</span>
-          </Link>
-        </div>
-        <nav className="flex items-center gap-1 rounded-full border border-iron-700 bg-iron-900 p-1">
-          <Link
-            to="/"
-            className={`rounded-full px-4 py-1.5 font-body text-sm transition-colors ${location.pathname === '/' && !location.hash
-              ? 'bg-ember-500 text-iron-950 font-medium'
-              : 'text-slate2 hover:text-chalk'
-              }`}
-          >
-            Inicio
-          </Link>
-          <Link
-            to="/#nosotros-section"
-            onClick={(e) => handleScrollToSection(e, 'nosotros-section')}
-            className={`rounded-full px-4 py-1.5 font-body text-sm transition-colors ${location.hash === '#nosotros-section'
-              ? 'bg-ember-500 text-iron-950 font-medium'
-              : 'text-slate2 hover:text-chalk'
-              }`}
-          >
-            Nosotros
-          </Link>
-          <Link
-            to="/#videos-section"
-            onClick={(e) => handleScrollToSection(e, 'videos-section')}
-            className={`rounded-full px-4 py-1.5 font-body text-sm transition-colors ${location.hash === '#videos-section'
-              ? 'bg-ember-500 text-iron-950 font-medium'
-              : 'text-slate2 hover:text-chalk'
-              }`}
-          >
-            Videos
-          </Link>
-          <Link
-            to="/#dashboard-section"
-            onClick={(e) => handleScrollToSection(e, 'dashboard-section')}
-            className={`rounded-full px-4 py-1.5 font-body text-sm transition-colors ${location.hash === '#dashboard-section'
-              ? 'bg-ember-500 text-iron-950 font-medium'
-              : 'text-slate2 hover:text-chalk'
-              }`}
-          >
-            Estadísticas
-          </Link>
-          <Link
-            to="/#contacto-section"
-            onClick={(e) => handleScrollToSection(e, 'contacto-section')}
-            className={`rounded-full px-4 py-1.5 font-body text-sm transition-colors ${location.hash === '#contacto-section'
-              ? 'bg-ember-500 text-iron-950 font-medium'
-              : 'text-slate2 hover:text-chalk'
-              }`}
-          >
-            Contacto
-          </Link>
+    <header
+      className={`sticky top-0 z-50 transition-all duration-300 ${
+        scrolled
+          ? 'border-b border-iron-700 bg-iron-950/80 backdrop-blur-xl shadow-lg shadow-black/40'
+          : 'border-b border-transparent bg-iron-950/40 backdrop-blur-md'
+      }`}
+    >
+      <div
+        className={`mx-auto flex max-w-6xl items-center justify-between px-6 transition-all duration-300 ${
+          scrolled ? 'py-3' : 'py-4'
+        }`}
+      >
+        {/* Logo */}
+        <Link
+          to="/"
+          onClick={(e) => handleClick(e, 'inicio-section')}
+          className="group font-display text-2xl font-semibold tracking-wide text-chalk transition-transform duration-300 hover:scale-[1.03]"
+        >
+          VIKINGOS
+          <span className="text-ember-500 transition-all duration-300 group-hover:drop-shadow-[0_0_12px_rgba(255,94,26,0.7)]">
+            GYM
+          </span>
+        </Link>
+
+        {/* Navegación */}
+        <nav className="flex max-w-full items-center gap-1 overflow-x-auto rounded-full border border-iron-700 bg-iron-900/70 p-1 backdrop-blur [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          {NAV_ITEMS.map((item) => {
+            const isActive = activeSection === item.id;
+            return (
+              <a
+                key={item.id}
+                href={`/#${item.id}`}
+                onClick={(e) => handleClick(e, item.id)}
+                className={`relative shrink-0 rounded-full px-3 py-1.5 font-body text-xs transition-all duration-300 sm:px-4 sm:text-sm ${
+                  isActive
+                    ? 'bg-ember-500 font-semibold text-iron-950 shadow-ember scale-105'
+                    : 'text-slate2 hover:bg-iron-800/60 hover:text-chalk'
+                }`}
+              >
+                {item.label}
+              </a>
+            );
+          })}
         </nav>
       </div>
+
+      {/* Barra de progreso de lectura */}
+      <div
+        className="h-0.5 origin-left bg-ember-gradient transition-[width] duration-150 ease-out"
+        style={{ width: `${progress}%` }}
+      />
     </header>
   );
 }
-

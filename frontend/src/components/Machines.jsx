@@ -86,7 +86,7 @@ export default function Machines() {
   return (
     <section id="maquinas-section" className="mx-auto max-w-6xl px-6 py-16">
       {/* Cabecera con título y botón flotante */}
-      <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between border-b border-iron-800 pb-6">
+      <div className="reveal mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between border-b border-iron-800 pb-6">
         <div>
           <p className="font-mono text-xs uppercase tracking-[0.3em] text-ember-500">
             Equipo del gimnasio
@@ -171,7 +171,7 @@ export default function Machines() {
       </aside>
 
       {/* Sección principal de las máquinas */}
-      <div className="w-full">
+      <div className="reveal w-full">
         {visibles.length === 0 && (
           <p className="font-body text-slate2">No hay máquinas registradas en esta categoría.</p>
         )}
@@ -180,7 +180,7 @@ export default function Machines() {
           {visibles.map((m) => (
             <article
               key={m.id}
-              className="group overflow-hidden rounded-2xl border border-iron-700 bg-iron-900 hover:border-ember-500/50 hover:shadow-xl hover:shadow-ember-500/5 transition-all duration-300"
+              className="group overflow-hidden rounded-2xl border border-iron-700 bg-iron-900 hover:border-ember-500/50 hover:shadow-xl hover:shadow-ember-500/10 hover:-translate-y-1 transition-all duration-300"
             >
               <div className="relative h-52 w-full overflow-hidden bg-iron-800">
                 <img

@@ -2,9 +2,178 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  background-color: #13110f;
-  color: #f3efe8;
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: #13110f;
+    color: #f3efe8;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Selección de texto en tono ember */
+  ::selection {
+    background-color: rgba(255, 94, 26, 0.3);
+    color: #f3efe8;
+  }
+
+  /* Scrollbar en la paleta iron/ember */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #3a332f #13110f;
+  }
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #13110f;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #3a332f;
+    border-radius: 999px;
+    border: 2px solid #13110f;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #544a44;
+  }
+
+  /* Anillo de foco accesible y coherente con la paleta */
+  :focus-visible {
+    outline: 2px solid #ff5e1a;
+    outline-offset: 2px;
+  }
+
+  /* Respeta la preferencia de movimiento reducido */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
 }
 
+@layer components {
+  /* Texto con degradado ember reutilizable */
+  .text-ember-gradient {
+    background: linear-gradient(90deg, #ff5e1a, #ff8a4c);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
 
+  /* Texto con degradado ember animado */
+  .text-ember-gradient-animated {
+    background: linear-gradient(90deg, #ff5e1a, #ff8a4c, #ff5e1a);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: gradient-shift 6s ease infinite;
+  }
+
+  /* Aparición al hacer scroll (activada por IntersectionObserver en App) */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform;
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@layer utilities {
+  /* Respeta la preferencia de movimiento reducido para el scroll-reveal */
+  @media (prefers-reduced-motion: reduce) {
+    .reveal {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+  }
+}
+
+/* ===== Animación de introducción (splash) =====
+   Solo se animan transform/opacity para mantenerlo eficiente (compositor/GPU). */
+@keyframes intro-plate {
+  0% {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes intro-word {
+  0% {
+    opacity: 0;
+    transform: translateY(26px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes intro-beam {
+  0% {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+@keyframes intro-curtain {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
+}
+
+.intro-plate {
+  animation: intro-plate 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+  will-change: transform, opacity;
+}
+.intro-word {
+  animation: intro-word 0.7s ease-out both;
+  will-change: transform, opacity;
+}
+.intro-beam {
+  transform-origin: center;
+  animation: intro-beam 0.8s ease-out 0.3s both;
+  will-change: transform, opacity;
+}
+.intro-curtain {
+  animation: intro-curtain 0.7s cubic-bezier(0.7, 0, 0.3, 1) forwards;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro-plate,
+  .intro-word,
+  .intro-beam {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  .intro-curtain {
+    animation-duration: 0.2s;
+  }
+}

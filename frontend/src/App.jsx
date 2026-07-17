@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
+import Intro from './components/Intro';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import SobreNosotros from './components/SobreNosotros';
@@ -24,8 +25,36 @@ export default function App() {
     }
   }, [location]);
 
+  // Aparición progresiva de las secciones al hacer scroll
+  useEffect(() => {
+    const elements = Array.from(document.querySelectorAll('.reveal'));
+    if (!elements.length) return;
+
+    // Fallback: si el navegador no soporta IntersectionObserver, se muestra todo
+    if (typeof IntersectionObserver === 'undefined') {
+      elements.forEach((el) => el.classList.add('is-visible'));
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries, obs) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: '0px 0px -8% 0px' }
+    );
+
+    elements.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div className="min-h-screen font-body bg-iron-950 text-chalk flex flex-col justify-between">
+      <Intro />
       <div>
         <Navbar />
         <Routes>

@@ -60,7 +60,7 @@ export default function Videos() {
 
     return (
         <section id="videos-section" className="mx-auto max-w-6xl px-6 py-16">
-            <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between border-b border-iron-800 pb-6">
+            <div className="reveal mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between border-b border-iron-800 pb-6">
                 <div>
                     <p className="font-mono text-xs uppercase tracking-[0.3em] text-ember-500">
                         Contenido Multimedia
@@ -71,11 +71,11 @@ export default function Videos() {
                 </div>
             </div>
 
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="reveal grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 {VIDEOS_GIMNASIO.map((v) => (
                     <article
                         key={v.id}
-                        className="overflow-hidden rounded-2xl border border-iron-700 bg-iron-900 hover:border-ember-500/50 hover:shadow-xl hover:shadow-ember-500/5 transition-all duration-300"
+                        className="overflow-hidden rounded-2xl border border-iron-700 bg-iron-900 hover:border-ember-500/50 hover:shadow-xl hover:shadow-ember-500/10 hover:-translate-y-1 transition-all duration-300"
                     >
                         <div className="relative w-full aspect-video bg-iron-800">
                             <iframe

@@ -1,6 +1,6 @@
 export default function SobreNosotros() {
     return (
-        <section id="nosotros-section" className="border-t border-iron-800 bg-iron-950">
+        <section id="nosotros-section" className="reveal border-t border-iron-800 bg-iron-950">
             <div className="mx-auto max-w-6xl px-6 py-16">
 
                 {/* Cabecera */}
@@ -19,7 +19,7 @@ export default function SobreNosotros() {
                 {/* Misión y Visión */}
                 <div className="grid grid-cols-1 gap-8 md:grid-cols-2 mb-12">
                     {/* Misión */}
-                    <div className="rounded-2xl border border-iron-700 bg-iron-900 p-6">
+                    <div className="rounded-2xl border border-iron-700 bg-iron-900 p-6 transition-all duration-300 hover:border-ember-500/40 hover:-translate-y-1">
                         <div className="flex items-center gap-3 mb-4">
                             <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-ember-500/10 border border-ember-500/30 text-ember-500">
                                 <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -37,7 +37,7 @@ export default function SobreNosotros() {
                     </div>
 
                     {/* Visión */}
-                    <div className="rounded-2xl border border-iron-700 bg-iron-900 p-6">
+                    <div className="rounded-2xl border border-iron-700 bg-iron-900 p-6 transition-all duration-300 hover:border-ember-500/40 hover:-translate-y-1">
                         <div className="flex items-center gap-3 mb-4">
                             <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-ember-500/10 border border-ember-500/30 text-ember-500">
                                 <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -60,7 +60,7 @@ export default function SobreNosotros() {
                 <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
 
                     {/* Lista Ordenada: Historia del Gimnasio */}
-                    <div className="rounded-2xl border border-iron-700 bg-iron-900 p-6">
+                    <div className="rounded-2xl border border-iron-700 bg-iron-900 p-6 transition-all duration-300 hover:border-ember-500/40 hover:-translate-y-1">
                         <h4 className="font-display text-lg font-semibold uppercase text-chalk mb-1">
                             Nuestra Historia
                         </h4>
@@ -92,7 +92,7 @@ export default function SobreNosotros() {
                     </div>
 
                     {/* Lista Desordenada: Beneficios de ser miembro */}
-                    <div className="rounded-2xl border border-iron-700 bg-iron-900 p-6">
+                    <div className="rounded-2xl border border-iron-700 bg-iron-900 p-6 transition-all duration-300 hover:border-ember-500/40 hover:-translate-y-1">
                         <h4 className="font-display text-lg font-semibold uppercase text-chalk mb-1">
                             Beneficios de Ser Miembro
                         </h4>

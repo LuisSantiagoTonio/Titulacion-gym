@@ -33,7 +33,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contacto-section" className="relative overflow-hidden border-t border-iron-800 bg-iron-950 py-20">
+    <section id="contacto-section" className="reveal relative overflow-hidden border-t border-iron-800 bg-iron-950 py-20">
       {/* Elemento de diseño de fondo */}
       <div className="absolute right-0 bottom-0 h-96 w-96 rounded-full bg-ember-600/5 blur-[120px] pointer-events-none" />
       <div className="absolute left-10 top-1/3 h-72 w-72 rounded-full bg-ember-500/5 blur-[100px] pointer-events-none" />
@@ -41,9 +41,10 @@ export default function Contact() {
       <div className="mx-auto max-w-6xl px-6 relative z-10">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
           {/* Información del Gimnasio (Lado izquierdo) */}
-          <div className="lg:col-span-5 flex flex-col justify-between">
+          <div className="lg:col-span-5 flex flex-col justify-between animate-fade-up">
             <div>
-              <p className="font-mono text-xs uppercase tracking-[0.3em] text-ember-500">
+              <p className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.3em] text-ember-500">
+                <span className="h-1.5 w-1.5 rounded-full bg-ember-500 animate-ember-pulse" />
                 ¿Tienes dudas?
               </p>
               <h2 className="mt-3 font-display text-4xl font-semibold uppercase tracking-wide text-chalk sm:text-5xl">
@@ -55,8 +56,8 @@ export default function Contact() {
             </div>
 
             <div className="mt-10 lg:mt-0 space-y-6">
-              <div className="flex items-start gap-4">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-iron-700 bg-iron-900 text-ember-500">
+              <div className="group flex items-start gap-4">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-iron-700 bg-iron-900 text-ember-500 transition-all duration-300 group-hover:border-ember-500/50 group-hover:bg-ember-500/10 group-hover:-translate-y-0.5">
                   <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -68,8 +69,8 @@ export default function Contact() {
                 </div>
               </div>
 
-              <div className="flex items-start gap-4">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-iron-700 bg-iron-900 text-ember-500">
+              <div className="group flex items-start gap-4">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-iron-700 bg-iron-900 text-ember-500 transition-all duration-300 group-hover:border-ember-500/50 group-hover:bg-ember-500/10 group-hover:-translate-y-0.5">
                   <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
@@ -84,8 +85,8 @@ export default function Contact() {
                 </div>
               </div>
 
-              <div className="flex items-start gap-4">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-iron-700 bg-iron-900 text-ember-500">
+              <div className="group flex items-start gap-4">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-iron-700 bg-iron-900 text-ember-500 transition-all duration-300 group-hover:border-ember-500/50 group-hover:bg-ember-500/10 group-hover:-translate-y-0.5">
                   <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
@@ -108,8 +109,8 @@ export default function Contact() {
           </div>
 
           {/* Formulario (Lado derecho) */}
-          <div className="lg:col-span-7">
-            <div className="rounded-2xl border border-iron-700 bg-iron-900/40 backdrop-blur-md p-8 shadow-2xl">
+          <div className="lg:col-span-7 animate-fade-up [animation-delay:120ms]">
+            <div className="rounded-2xl border border-iron-700 bg-iron-900/40 backdrop-blur-md p-8 shadow-2xl transition-colors duration-300 hover:border-iron-600">
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
                   <label htmlFor="contacto-nombre" className="block font-mono text-[10px] uppercase tracking-widest text-slate2 mb-2">
@@ -122,7 +123,7 @@ export default function Contact() {
                     value={nombre}
                     onChange={(e) => setNombre(e.target.value)}
                     disabled={loading}
-                    className="w-full rounded-xl border border-iron-700 bg-iron-950/70 px-4 py-3.5 text-sm text-chalk placeholder-iron-600 focus:border-ember-500 focus:outline-none transition-all font-body"
+                    className="w-full rounded-xl border border-iron-700 bg-iron-950/70 px-4 py-3.5 text-sm text-chalk placeholder-iron-600 focus:border-ember-500 focus:ring-2 focus:ring-ember-500/20 focus:outline-none transition-all font-body hover:border-iron-600"
                     placeholder="Tu nombre completo"
                   />
                 </div>
@@ -138,7 +139,7 @@ export default function Contact() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     disabled={loading}
-                    className="w-full rounded-xl border border-iron-700 bg-iron-950/70 px-4 py-3.5 text-sm text-chalk placeholder-iron-600 focus:border-ember-500 focus:outline-none transition-all font-body"
+                    className="w-full rounded-xl border border-iron-700 bg-iron-950/70 px-4 py-3.5 text-sm text-chalk placeholder-iron-600 focus:border-ember-500 focus:ring-2 focus:ring-ember-500/20 focus:outline-none transition-all font-body hover:border-iron-600"
                     placeholder="ejemplo@correo.com"
                   />
                 </div>
@@ -154,7 +155,7 @@ export default function Contact() {
                     value={mensaje}
                     onChange={(e) => setMensaje(e.target.value)}
                     disabled={loading}
-                    className="w-full rounded-xl border border-iron-700 bg-iron-950/70 px-4 py-3.5 text-sm text-chalk placeholder-iron-600 focus:border-ember-500 focus:outline-none transition-all font-body resize-none"
+                    className="w-full rounded-xl border border-iron-700 bg-iron-950/70 px-4 py-3.5 text-sm text-chalk placeholder-iron-600 focus:border-ember-500 focus:ring-2 focus:ring-ember-500/20 focus:outline-none transition-all font-body hover:border-iron-600 resize-none"
                     placeholder="Escribe tu mensaje o pregunta aquí..."
                   />
                 </div>
