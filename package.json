@@ -1,12 +1,23 @@
 {
-  "name": "titulacion-gym-root",
-  "version": "1.0.0",
-  "description": "Root configuration to manage frontend and backend",
+  "name": "vikingos-gym-informativa",
   "private": true,
+  "version": "1.0.0",
+  "type": "module",
   "scripts": {
-    "dev:frontend": "npm run dev --prefix frontend",
-    "dev:backend": "npm run dev --prefix backend",
-    "start:backend": "npm run start --prefix backend",
-    "install:all": "npm install --prefix frontend && npm install --prefix backend"
-  }
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.1",
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.4",
+    "vite": "^5.3.1"
+  },
+  "description": "Página informativa de Vikingos Gym creada con React, Vite y Tailwind CSS."
 }

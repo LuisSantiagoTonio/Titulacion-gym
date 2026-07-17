@@ -1,78 +1,32 @@
-# VIKINGOS GYM — Web del gimnasio (React + Node.js + MySQL/XAMPP)
+# VIKINGOS GYM — Página informativa
 
-Proyecto completo con:
-- **Frontend**: React (Vite) + Tailwind CSS
-- **Backend**: Node.js + Express
-- **Base de datos**: MySQL, administrada con XAMPP/phpMyAdmin
-- Sección de **máquinas disponibles** con imágenes que vienen de la base de datos
+Sitio web informativo creado con React, Vite y Tailwind CSS.
 
-## 1. Preparar la base de datos (XAMPP)
+## Funciones
 
-1. Abre el **Panel de control de XAMPP** y enciende **Apache** y **MySQL**.
-2. Ve a `http://localhost/phpmyadmin`.
-3. Haz clic en **Importar** → selecciona el archivo `backend/database/schema.sql` de este proyecto → **Continuar**.
-   - Esto crea la base `gimnasio_db` con la tabla `maquinas` y datos de ejemplo (incluyendo URLs de imágenes).
-4. (Opcional) Si quieres usar tus propias fotos: copia las imágenes a `backend/uploads/` y en la tabla `maquinas` pon en `imagen_url` algo como `/uploads/banca.jpg`.
+- Información del gimnasio, horarios, ubicación, equipo y videos.
+- Formulario de contacto con dos opciones:
+  - Enviar por correo a `santiagol59776@gmail.com` mediante FormSubmit.
+  - Abrir WhatsApp con el mensaje preparado para el número `+52 56 2077 0243`.
+- No utiliza backend propio, base de datos, XAMPP ni MySQL.
 
-## 2. Levantar el backend (Node.js)
+## Ejecutar el proyecto
 
 ```bash
-cd backend
 npm install
 npm run dev
 ```
 
-Por defecto se conecta a MySQL con usuario `root` y contraseña vacía (configuración estándar de XAMPP). Si tu XAMPP usa otra contraseña, edita `backend/config/db.js` o crea un archivo `.env` con:
+Después abre la dirección que muestre Vite, normalmente `http://localhost:5173`.
 
-```
-DB_HOST=localhost
-DB_USER=root
-DB_PASSWORD=tu_password
-DB_NAME=gimnasio_db
-DB_PORT=3306
-```
-
-El backend quedará corriendo en `http://localhost:5000`.
-
-## 3. Levantar el frontend (React)
-
-En otra terminal:
+## Crear versión para publicar
 
 ```bash
-cd frontend
-npm install
-npm run dev
+npm run build
 ```
 
-Abre `http://localhost:5173` en tu navegador.
+La carpeta generada será `dist` y puede publicarse en Netlify, Vercel o GitHub Pages.
 
-## Endpoints de la API
+## Nota sobre el correo
 
-| Método | Ruta                     | Descripción                          |
-|--------|--------------------------|---------------------------------------|
-| GET    | /api/maquinas            | Lista todas las máquinas              |
-| GET    | /api/maquinas/:id        | Obtiene una máquina                   |
-
-## Estructura del proyecto
-
-```
-gym-app/
-├── backend/
-│   ├── config/db.js          # Conexión a MySQL
-│   ├── routes/machines.js    # Listado de máquinas
-│   ├── database/schema.sql   # Script para importar en phpMyAdmin
-│   ├── uploads/               # Carpeta para fotos propias
-│   └── server.js
-└── frontend/
-    ├── src/
-    │   ├── api/api.js         # Llamadas fetch al backend
-    │   ├── components/        # Navbar, Hero, Machines
-    │   └── App.jsx
-    ├── tailwind.config.js
-    └── index.html
-```
-
-## Notas
-
-- Si la sección de máquinas muestra un error de conexión, revisa que: (1) Apache y MySQL estén encendidos en XAMPP, (2) el backend esté corriendo (`npm run dev` dentro de `backend/`), y (3) el puerto 5000 no esté ocupado por otra app.
-- Las imágenes de ejemplo en `schema.sql` apuntan a fotos de stock públicas, solo para que veas el diseño funcionando. Sustitúyelas por las fotos reales de tu gimnasio.
+El envío por correo usa FormSubmit, por lo que la primera vez puede solicitar confirmar la dirección de correo desde el mensaje de activación que llega a la bandeja de entrada.

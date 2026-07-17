@@ -1,9 +1,0 @@
-Elliptical trainer: error
-Stationary bicycle: error
-Power rack: error
-Cable machine: error
-Treadmill: https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Exercise_Treadmill_Convey_Motion.jpg/960px-Exercise_Treadmill_Convey_Motion.jpg
-Leg press: error
-Bench press: error
-Dumbbell: error
-Indoor rower: error

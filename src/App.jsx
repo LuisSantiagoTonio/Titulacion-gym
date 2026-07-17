@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
 import Intro from './components/Intro';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -10,21 +9,6 @@ import Dashboard from './components/Dashboard';
 import Contact from './components/Contact';
 
 export default function App() {
-  const location = useLocation();
-
-  useEffect(() => {
-    if (location.hash) {
-      const sectionId = location.hash.substring(1);
-      const timer = setTimeout(() => {
-        const element = document.getElementById(sectionId);
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
-        }
-      }, 150);
-      return () => clearTimeout(timer);
-    }
-  }, [location]);
-
   // Aparición progresiva de las secciones al hacer scroll
   useEffect(() => {
     const elements = Array.from(document.querySelectorAll('.reveal'));
@@ -57,21 +41,12 @@ export default function App() {
       <Intro />
       <div>
         <Navbar />
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <>
-                <Hero />
-                <SobreNosotros />
-                <Machines />
-                <Videos />
-                <Dashboard />
-                <Contact />
-              </>
-            }
-          />
-        </Routes>
+        <Hero />
+        <SobreNosotros />
+        <Machines />
+        <Videos />
+        <Dashboard />
+        <Contact />
       </div>
       <footer className="border-t border-iron-800 py-8 text-center font-mono text-xs text-slate2">
         VIKINGOS GYM — Canalejas, Jilotepec, Estado de México

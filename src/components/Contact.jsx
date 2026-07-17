@@ -1,5 +1,32 @@
 import { useState } from 'react';
-import { sendContacto } from '../api/api';
+const CONTACT_EMAIL = 'santiagol59776@gmail.com';
+const WHATSAPP_NUMBER = '525620770243';
+const WHATSAPP_DISPLAY = '+52 56 2077 0243';
+
+async function sendContacto(nombre, email, mensaje) {
+  const response = await fetch(`https://formsubmit.co/ajax/${CONTACT_EMAIL}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    },
+    body: JSON.stringify({
+      name: nombre,
+      email,
+      message: mensaje,
+      _subject: `Nuevo mensaje de contacto VIKINGOS GYM - ${nombre}`,
+      _replyto: email,
+      _template: 'box',
+    }),
+  });
+
+  const data = await response.json().catch(() => ({}));
+  if (!response.ok || (data.success !== true && data.success !== 'true')) {
+    throw new Error(data.message || 'No se pudo enviar el correo. Intenta de nuevo.');
+  }
+
+  return data;
+}
 
 export default function Contact() {
   const [nombre, setNombre] = useState('');
@@ -30,6 +57,32 @@ export default function Contact() {
     } finally {
       setLoading(false);
     }
+  };
+
+
+  const handleWhatsApp = (e) => {
+    const form = e.currentTarget.form;
+
+    // Conserva la validación de los campos requeridos y del formato del correo.
+    if (!form?.reportValidity()) return;
+
+    const textoWhatsApp = [
+      'Hola, quiero solicitar información de Vikingos Gym.',
+      '',
+      `Nombre: ${nombre.trim()}`,
+      `Correo: ${email.trim()}`,
+      '',
+      'Mensaje:',
+      mensaje.trim(),
+    ].join('\n');
+
+    const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(textoWhatsApp)}`;
+    window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+
+    setStatus({
+      type: 'success',
+      message: 'Se abrió WhatsApp con tu mensaje listo para enviarse.',
+    });
   };
 
   return (
@@ -80,6 +133,29 @@ export default function Contact() {
                   <p className="mt-1 font-body text-sm text-slate2">
                     <a href="mailto:santiagol59776@gmail.com" className="hover:text-ember-500 transition-colors">
                       santiagol59776@gmail.com
+                    </a>
+                  </p>
+                </div>
+              </div>
+
+
+              <div className="group flex items-start gap-4">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-iron-700 bg-iron-900 text-ember-500 transition-all duration-300 group-hover:border-ember-500/50 group-hover:bg-ember-500/10 group-hover:-translate-y-0.5">
+                  <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.5 4.5A7.5 7.5 0 0119.5 11c0 4.142-3.358 7.5-7.5 7.5a7.47 7.47 0 01-3.54-.887L4.5 19.5l1.307-4.093A7.5 7.5 0 018.5 4.5z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.25 8.75c.35 2.4 2.1 4.15 4.5 4.5" />
+                  </svg>
+                </div>
+                <div>
+                  <h4 className="font-mono text-xs uppercase tracking-wider text-chalk font-semibold">WhatsApp</h4>
+                  <p className="mt-1 font-body text-sm text-slate2">
+                    <a
+                      href={`https://wa.me/${WHATSAPP_NUMBER}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:text-ember-500 transition-colors"
+                    >
+                      {WHATSAPP_DISPLAY}
                     </a>
                   </p>
                 </div>
@@ -172,23 +248,48 @@ export default function Contact() {
                   </div>
                 )}
 
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="w-full sm:w-auto rounded-xl bg-ember-500 px-8 py-4 font-display text-sm font-bold uppercase tracking-widest text-iron-950 hover:bg-ember-600 transition-all shadow-lg shadow-ember-500/10 active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none flex items-center justify-center gap-2"
-                >
-                  {loading ? (
-                    <>
-                      <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-iron-950" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                <div>
+                  <p className="mb-3 font-mono text-[10px] uppercase tracking-widest text-slate2">
+                    Elige cómo deseas enviar tu mensaje
+                  </p>
+                  <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                    <button
+                      type="submit"
+                      disabled={loading}
+                      className="w-full rounded-xl bg-ember-500 px-6 py-4 font-display text-sm font-bold uppercase tracking-widest text-iron-950 hover:bg-ember-600 transition-all shadow-lg shadow-ember-500/10 active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none flex items-center justify-center gap-2"
+                    >
+                      {loading ? (
+                        <>
+                          <svg className="animate-spin h-4 w-4 text-iron-950" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                          </svg>
+                          <span>Enviando...</span>
+                        </>
+                      ) : (
+                        <>
+                          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                          </svg>
+                          <span>Enviar por correo</span>
+                        </>
+                      )}
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={handleWhatsApp}
+                      disabled={loading}
+                      className="w-full rounded-xl border border-emerald-500/40 bg-emerald-500/10 px-6 py-4 font-display text-sm font-bold uppercase tracking-widest text-emerald-400 hover:bg-emerald-500 hover:text-iron-950 transition-all active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none flex items-center justify-center gap-2"
+                    >
+                      <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.5 4.5A7.5 7.5 0 0119.5 11c0 4.142-3.358 7.5-7.5 7.5a7.47 7.47 0 01-3.54-.887L4.5 19.5l1.307-4.093A7.5 7.5 0 018.5 4.5z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.25 8.75c.35 2.4 2.1 4.15 4.5 4.5" />
                       </svg>
-                      <span>Enviando...</span>
-                    </>
-                  ) : (
-                    'Enviar Mensaje'
-                  )}
-                </button>
+                      <span>Enviar por WhatsApp</span>
+                    </button>
+                  </div>
+                </div>
               </form>
             </div>
           </div>

@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 
 const NAV_ITEMS = [
   { id: 'inicio-section', label: 'Inicio' },
@@ -69,8 +68,8 @@ export default function Navbar() {
         }`}
       >
         {/* Logo */}
-        <Link
-          to="/"
+        <a
+          href="#inicio-section"
           onClick={(e) => handleClick(e, 'inicio-section')}
           className="group font-display text-2xl font-semibold tracking-wide text-chalk transition-transform duration-300 hover:scale-[1.03]"
         >
@@ -78,7 +77,7 @@ export default function Navbar() {
           <span className="text-ember-500 transition-all duration-300 group-hover:drop-shadow-[0_0_12px_rgba(255,94,26,0.7)]">
             GYM
           </span>
-        </Link>
+        </a>
 
         {/* Navegación */}
         <nav className="flex max-w-full items-center gap-1 overflow-x-auto rounded-full border border-iron-700 bg-iron-900/70 p-1 backdrop-blur [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
