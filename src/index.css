@@ -177,3 +177,8 @@
     animation-duration: 0.2s;
   }
 }
+
+/* Evita que la barra fija cubra los títulos al navegar mediante anclas. */
+section[id], details[id] {
+  scroll-margin-top: 6.5rem;
+}

@@ -3,8 +3,11 @@ import { useEffect, useState } from 'react';
 const NAV_ITEMS = [
   { id: 'inicio-section', label: 'Inicio' },
   { id: 'nosotros-section', label: 'Nosotros' },
-  { id: 'videos-section', label: 'Videos' },
-  { id: 'dashboard-section', label: 'Estadísticas' },
+  { id: 'servicios-section', label: 'Servicios' },
+  { id: 'galeria-section', label: 'Galería' },
+  { id: 'horarios-section', label: 'Horarios' },
+  { id: 'testimonios-section', label: 'Testimonios' },
+  { id: 'aliados-section', label: 'Aliados' },
   { id: 'contacto-section', label: 'Contacto' },
 ];
 
@@ -13,99 +16,62 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [progress, setProgress] = useState(0);
 
-  // Scroll spy: detecta la sección visible y resalta su enlace
   useEffect(() => {
     const sections = NAV_ITEMS.map((item) => document.getElementById(item.id)).filter(Boolean);
-    if (!sections.length || typeof IntersectionObserver === 'undefined') return;
+    if (!sections.length || typeof IntersectionObserver === 'undefined') return undefined;
 
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) setActiveSection(entry.target.id);
-        });
+        const visibleEntry = entries.find((entry) => entry.isIntersecting);
+        if (visibleEntry) setActiveSection(visibleEntry.target.id);
       },
-      // Activa una "línea" imaginaria a ~45% de la parte superior de la pantalla
-      { rootMargin: '-45% 0px -50% 0px', threshold: 0 }
+      { rootMargin: '-42% 0px -52% 0px', threshold: 0 }
     );
 
-    sections.forEach((s) => observer.observe(s));
+    sections.forEach((section) => observer.observe(section));
     return () => observer.disconnect();
   }, []);
 
-  // Estado y progreso al hacer scroll
   useEffect(() => {
     const onScroll = () => {
       const scrollTop = window.scrollY;
       const height = document.documentElement.scrollHeight - window.innerHeight;
       setScrolled(scrollTop > 8);
       setProgress(height > 0 ? (scrollTop / height) * 100 : 0);
-      // Al llegar arriba del todo, forzamos "Inicio" activo
       if (scrollTop < 120) setActiveSection('inicio-section');
     };
+
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const handleClick = (e, id) => {
-    e.preventDefault();
-    const element = document.getElementById(id);
-    if (element) element.scrollIntoView({ behavior: 'smooth' });
+  const goToSection = (event, id) => {
+    event.preventDefault();
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
     setActiveSection(id);
   };
 
   return (
-    <header
-      className={`sticky top-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? 'border-b border-iron-700 bg-iron-950/80 backdrop-blur-xl shadow-lg shadow-black/40'
-          : 'border-b border-transparent bg-iron-950/40 backdrop-blur-md'
-      }`}
-    >
-      <div
-        className={`mx-auto flex max-w-6xl items-center justify-between px-6 transition-all duration-300 ${
-          scrolled ? 'py-3' : 'py-4'
-        }`}
-      >
-        {/* Logo */}
-        <a
-          href="#inicio-section"
-          onClick={(e) => handleClick(e, 'inicio-section')}
-          className="group font-display text-2xl font-semibold tracking-wide text-chalk transition-transform duration-300 hover:scale-[1.03]"
-        >
-          VIKINGOS
-          <span className="text-ember-500 transition-all duration-300 group-hover:drop-shadow-[0_0_12px_rgba(255,94,26,0.7)]">
-            GYM
-          </span>
+    <header className={`sticky top-0 z-40 transition-all duration-300 ${scrolled ? 'border-b border-iron-700 bg-iron-950/90 shadow-lg shadow-black/30 backdrop-blur-xl' : 'border-b border-transparent bg-iron-950/55 backdrop-blur-md'}`}>
+      <div className={`mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 transition-all ${scrolled ? 'py-3' : 'py-4'}`}>
+        <a href="#inicio-section" onClick={(event) => goToSection(event, 'inicio-section')} className="shrink-0 font-display text-xl font-semibold tracking-wide text-chalk sm:text-2xl">
+          VIKINGOS<span className="text-ember-500">GYM</span>
         </a>
-
-        {/* Navegación */}
-        <nav className="flex max-w-full items-center gap-1 overflow-x-auto rounded-full border border-iron-700 bg-iron-900/70 p-1 backdrop-blur [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-          {NAV_ITEMS.map((item) => {
-            const isActive = activeSection === item.id;
-            return (
-              <a
-                key={item.id}
-                href={`/#${item.id}`}
-                onClick={(e) => handleClick(e, item.id)}
-                className={`relative shrink-0 rounded-full px-3 py-1.5 font-body text-xs transition-all duration-300 sm:px-4 sm:text-sm ${
-                  isActive
-                    ? 'bg-ember-500 font-semibold text-iron-950 shadow-ember scale-105'
-                    : 'text-slate2 hover:bg-iron-800/60 hover:text-chalk'
-                }`}
-              >
-                {item.label}
-              </a>
-            );
-          })}
+        <nav className="flex max-w-full items-center gap-1 overflow-x-auto rounded-full border border-iron-700 bg-iron-900/70 p-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden" aria-label="Navegación principal">
+          {NAV_ITEMS.map((item) => (
+            <a
+              key={item.id}
+              href={`#${item.id}`}
+              onClick={(event) => goToSection(event, item.id)}
+              className={`shrink-0 rounded-full px-3 py-1.5 text-xs transition sm:px-4 sm:text-sm ${activeSection === item.id ? 'scale-105 bg-ember-500 font-semibold text-iron-950 shadow-ember' : 'text-slate2 hover:bg-iron-800/60 hover:text-chalk'}`}
+            >
+              {item.label}
+            </a>
+          ))}
         </nav>
       </div>
-
-      {/* Barra de progreso de lectura */}
-      <div
-        className="h-0.5 origin-left bg-ember-gradient transition-[width] duration-150 ease-out"
-        style={{ width: `${progress}%` }}
-      />
+      <div className="h-0.5 bg-ember-gradient transition-[width] duration-150" style={{ width: `${progress}%` }} />
     </header>
   );
 }

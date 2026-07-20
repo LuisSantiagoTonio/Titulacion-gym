@@ -1,32 +1,33 @@
-# VIKINGOS GYM — Página informativa
+# Vikingos Gym — página web estática
 
-Sitio web informativo creado con React, Vite y Tailwind CSS.
+Aplicación informativa responsiva desarrollada con React, Vite y Tailwind CSS. No utiliza backend ni base de datos.
 
-## Funciones
-
-- Información del gimnasio, horarios, ubicación, equipo y videos.
-- Formulario de contacto con dos opciones:
-  - Enviar por correo a `santiagol59776@gmail.com` mediante FormSubmit.
-  - Abrir WhatsApp con el mensaje preparado para el número `+52 56 2077 0243`.
-- No utiliza backend propio, base de datos, XAMPP ni MySQL.
-
-## Ejecutar el proyecto
+## Ejecutar en la computadora
 
 ```bash
 npm install
 npm run dev
 ```
 
-Después abre la dirección que muestre Vite, normalmente `http://localhost:5173`.
+Vite mostrará una dirección local, normalmente `http://localhost:5173/`.
 
-## Crear versión para publicar
+## Compilar para producción
 
 ```bash
 npm run build
 ```
 
-La carpeta generada será `dist` y puede publicarse en Netlify, Vercel o GitHub Pages.
+## Publicar en Netlify
 
-## Nota sobre el correo
+- Build command: `npm run build`
+- Publish directory: `dist`
 
-El envío por correo usa FormSubmit, por lo que la primera vez puede solicitar confirmar la dirección de correo desde el mensaje de activación que llega a la bandeja de entrada.
+El archivo `netlify.toml` ya contiene esta configuración.
+
+## Apartados incluidos
+
+Inicio, sobre nosotros, misión y visión, servicios y membresías, equipo, galería, videos, horarios, guías, testimonios demostrativos, aliados y enlaces externos, contacto por correo y WhatsApp, botones de Facebook, Instagram, TikTok y YouTube, aviso de privacidad y términos de uso.
+
+## Nota sobre contenido
+
+Las fotografías de la galería y los testimonios son contenido demostrativo para el proyecto escolar. Antes de utilizar la página con fines comerciales, deben sustituirse por fotografías y opiniones verificadas del gimnasio.

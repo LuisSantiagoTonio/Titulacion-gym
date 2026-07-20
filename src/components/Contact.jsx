@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import SocialLinks from './SocialLinks';
 const CONTACT_EMAIL = 'santiagol59776@gmail.com';
 const WHATSAPP_NUMBER = '525620770243';
 const WHATSAPP_DISPLAY = '+52 56 2077 0243';
@@ -180,6 +181,16 @@ export default function Contact() {
                     </div>
                   </div>
                 </div>
+              </div>
+
+              <div className="rounded-2xl border border-iron-700 bg-iron-900/40 p-5">
+                <div className="mb-4">
+                  <h4 className="font-mono text-xs font-semibold uppercase tracking-wider text-chalk">Síguenos en redes</h4>
+                  <p className="mt-1 text-xs leading-relaxed text-slate2">
+                    Conoce novedades, rutinas y contenido de Vikingos Gym.
+                  </p>
+                </div>
+                <SocialLinks />
               </div>
             </div>
           </div>
