@@ -12,6 +12,25 @@
     />
   </head>
   <body>
+    <!--
+      Formulario estático para que Netlify detecte los campos durante el deploy.
+      El formulario visible se encuentra en React y envía los mismos datos.
+    -->
+    <form
+      name="contacto-vikingos"
+      method="POST"
+      action="/gracias.html"
+      data-netlify="true"
+      netlify-honeypot="bot-field"
+      hidden
+    >
+      <input type="hidden" name="form-name" value="contacto-vikingos" />
+      <input type="text" name="nombre" />
+      <input type="email" name="email" />
+      <textarea name="mensaje"></textarea>
+      <input type="text" name="bot-field" />
+    </form>
+
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

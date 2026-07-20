@@ -3,30 +3,29 @@ import SocialLinks from './SocialLinks';
 const CONTACT_EMAIL = 'santiagol59776@gmail.com';
 const WHATSAPP_NUMBER = '525620770243';
 const WHATSAPP_DISPLAY = '+52 56 2077 0243';
+const NETLIFY_FORM_NAME = 'contacto-vikingos';
+
+function encodeForm(data) {
+  return new URLSearchParams(data).toString();
+}
 
 async function sendContacto(nombre, email, mensaje) {
-  const response = await fetch(`https://formsubmit.co/ajax/${CONTACT_EMAIL}`, {
+  const response = await fetch('/', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
+      'Content-Type': 'application/x-www-form-urlencoded',
     },
-    body: JSON.stringify({
-      name: nombre,
-      email,
-      message: mensaje,
-      _subject: `Nuevo mensaje de contacto VIKINGOS GYM - ${nombre}`,
-      _replyto: email,
-      _template: 'box',
+    body: encodeForm({
+      'form-name': NETLIFY_FORM_NAME,
+      nombre: nombre.trim(),
+      email: email.trim(),
+      mensaje: mensaje.trim(),
     }),
   });
 
-  const data = await response.json().catch(() => ({}));
-  if (!response.ok || (data.success !== true && data.success !== 'true')) {
-    throw new Error(data.message || 'No se pudo enviar el correo. Intenta de nuevo.');
+  if (!response.ok) {
+    throw new Error('No se pudo registrar el mensaje. Intenta nuevamente.');
   }
-
-  return data;
 }
 
 export default function Contact() {
@@ -45,7 +44,7 @@ export default function Contact() {
       await sendContacto(nombre, email, mensaje);
       setStatus({
         type: 'success',
-        message: '¡Tu mensaje ha sido enviado! Nos pondremos en contacto contigo pronto.',
+        message: '¡Mensaje enviado correctamente! Vikingos Gym recibió tus datos.',
       });
       setNombre('');
       setEmail('');
@@ -53,7 +52,7 @@ export default function Contact() {
     } catch (err) {
       setStatus({
         type: 'error',
-        message: err.message || 'Hubo un error al enviar el correo. Por favor inténtalo más tarde.',
+        message: err.message || 'Hubo un error al enviar el mensaje. También puedes usar WhatsApp.',
       });
     } finally {
       setLoading(false);
@@ -198,13 +197,28 @@ export default function Contact() {
           {/* Formulario (Lado derecho) */}
           <div className="lg:col-span-7 animate-fade-up [animation-delay:120ms]">
             <div className="rounded-2xl border border-iron-700 bg-iron-900/40 backdrop-blur-md p-8 shadow-2xl transition-colors duration-300 hover:border-iron-600">
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form
+                name={NETLIFY_FORM_NAME}
+                method="POST"
+                action="/gracias.html"
+                data-netlify="true"
+                data-netlify-honeypot="bot-field"
+                onSubmit={handleSubmit}
+                className="space-y-6"
+              >
+                <input type="hidden" name="form-name" value={NETLIFY_FORM_NAME} />
+                <p className="hidden" aria-hidden="true">
+                  <label>
+                    No llenes este campo: <input name="bot-field" tabIndex={-1} autoComplete="off" />
+                  </label>
+                </p>
                 <div>
                   <label htmlFor="contacto-nombre" className="block font-mono text-[10px] uppercase tracking-widest text-slate2 mb-2">
                     Nombre Completo
                   </label>
                   <input
                     id="contacto-nombre"
+                    name="nombre"
                     type="text"
                     required
                     value={nombre}
@@ -221,6 +235,7 @@ export default function Contact() {
                   </label>
                   <input
                     id="contacto-email"
+                    name="email"
                     type="email"
                     required
                     value={email}
@@ -237,6 +252,7 @@ export default function Contact() {
                   </label>
                   <textarea
                     id="contacto-mensaje"
+                    name="mensaje"
                     required
                     rows={5}
                     value={mensaje}
@@ -260,8 +276,11 @@ export default function Contact() {
                 )}
 
                 <div>
-                  <p className="mb-3 font-mono text-[10px] uppercase tracking-widest text-slate2">
+                  <p className="mb-1 font-mono text-[10px] uppercase tracking-widest text-slate2">
                     Elige cómo deseas enviar tu mensaje
+                  </p>
+                  <p className="mb-3 text-[11px] leading-relaxed text-slate2">
+                    El envío por correo se registra de forma segura mediante Netlify Forms.
                   </p>
                   <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                     <button
